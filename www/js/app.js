@@ -62,7 +62,7 @@ angular.module('conFusion', ['ionic', 'conFusion.controllers'])
   .state('app.menu', {
     url: '/menu',
     views: {
-      'menuContent': {
+      'mainContent': {
         templateUrl: 'templates/menu.html',
         controller: ''
       }
@@ -80,5 +80,5 @@ angular.module('conFusion', ['ionic', 'conFusion.controllers'])
   });
   
   // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('/app/playlists');
+  $urlRouterProvider.otherwise('/app/home');
 });
