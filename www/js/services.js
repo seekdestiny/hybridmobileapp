@@ -19,9 +19,16 @@ angular.module('conFusion.services', ['ngResource'])
 
         .factory('corporateFactory', ['$resource', 'baseURL', function($resource,baseURL) {
     
+            var corpfac = {};
     
-            return $resource(baseURL+"leadership/:id");
+            corpfac.getLeaders = function(){
+
+				    return $resource(baseURL+"leadership/:id",null,
+					{'update': {method: 'PUT'}});
+                    
+            };
     
+			return corpfac;
         }])
 
         .factory('feedbackFactory', ['$resource', 'baseURL', function($resource,baseURL) {
