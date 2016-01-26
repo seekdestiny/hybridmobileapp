@@ -70,16 +70,16 @@ angular.module('conFusion', ['ionic', 'conFusion.controllers', 'conFusion.servic
     }
   })
 
-  .state('app.dishdetails', {
+  .state('app.dishdetail', {
 	  url: '/menu/:id',
-	  view: {
-          'mainContent': {
+	  views: {
+       'mainContent': {
                templateUrl: 'templates/dishdetail.html',
 			   controller: 'DishDetailController'
-		  }
+	   }
 	  }
   });
-  
+
   // if none of the above states are matched, use this as the fallback
   $urlRouterProvider.otherwise('/app/home');
 });
