@@ -56,7 +56,7 @@ angular.module('conFusion.services', ['ngResource'])
                         favorites.splice(i, 1);
                     }
                 }
-            }
+            };
 
 			favFac.getFavorites = function () {
                 return favorites;
