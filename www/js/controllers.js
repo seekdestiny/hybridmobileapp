@@ -67,26 +67,6 @@ angular.module('conFusion.controllers', [])
       $scope.closeReserve();
     }, 1000);
   };
-
-  // Create the comment modal that we will use later
-  $ionicModal.fromTemplateUrl('templates/dish-comment.html', {
-    scope: $scope
-  }).then(function(modal) {
-    $scope.commentform = modal;
-  });
-
-  // Triggered in the comment modal to close it
-  $scope.closeComment = function() {
-    $scope.commentform.hide();
-  };
-
-  // Open the comment modal
-  $scope.comment = function() {
-    $scope.commentform.show();
-  };
-
-
-
 })
 
         .controller('MenuController', ['$scope', 'menuFactory', 'favoriteFactory', 'baseURL', '$ionicListDelegate', function($scope, menuFactory, favoriteFactory, baseURL, $ionicListDelegate) {
@@ -171,13 +151,14 @@ angular.module('conFusion.controllers', [])
             };
         }])
 
-        .controller('DishDetailController', ['$scope', '$stateParams', 'menuFactory', 'favoriteFactory', 'baseURL', '$ionicPopover', function($scope, $stateParams, menuFactory, favoriteFactory, baseURL, $ionicPopover) {
+        .controller('DishDetailController', ['$scope', '$stateParams', 'menuFactory', 'favoriteFactory', 'baseURL', '$ionicPopover', '$ionicModal', '$timeout', function($scope, $stateParams, menuFactory, favoriteFactory, baseURL, $ionicPopover, $ionicModal, $timeout) {
             
 			$scope.baseURL = baseURL;
             $scope.dish = {};
             $scope.showDish = false;
             $scope.message="Loading ...";
-            
+            $scope.comments = {rating:5, comment:"", author:"", date:""};
+
             $scope.dish = menuFactory.getDishes().get({id:parseInt($stateParams.id,10)})
             .$promise.then(
                             function(response){
@@ -208,6 +189,37 @@ angular.module('conFusion.controllers', [])
 				favoriteFactory.addToFavorites(index);
                 $scope.closePopover();
 			};
+
+			 // Create the comment modal that we will use later
+             $ionicModal.fromTemplateUrl('templates/dish-comment.html', {
+                scope: $scope
+             }).then(function(modal) {
+               $scope.commentform = modal;
+             });
+
+             // Triggered in the comment modal to close it
+             $scope.closeComment = function() {
+                $scope.commentform.hide();
+             };
+
+             // Open the comment modal
+             $scope.comment = function() {
+                $scope.commentform.show();
+				$scope.closePopover();
+             };
+
+             // Perform the comment action when the user submits the comment form
+             $scope.doComment = function() {
+				$scope.comments.date = new Date().toISOString();
+                console.log('Doing comment', $scope.comments);
+				$scope.dish.comments.push($scope.comments);
+
+                // Simulate a reservation delay. Remove this and replace with your reservation
+               // code if using a server system
+               $timeout(function() {
+                   $scope.closeComment();
+               }, 1000);
+             };
         }])
 
         .controller('DishCommentController', ['$scope', 'menuFactory', function($scope,menuFactory) {
