@@ -67,6 +67,26 @@ angular.module('conFusion.controllers', [])
       $scope.closeReserve();
     }, 1000);
   };
+
+  // Create the comment modal that we will use later
+  $ionicModal.fromTemplateUrl('templates/dish-comment.html', {
+    scope: $scope
+  }).then(function(modal) {
+    $scope.commentform = modal;
+  });
+
+  // Triggered in the comment modal to close it
+  $scope.closeComment = function() {
+    $scope.commentform.hide();
+  };
+
+  // Open the comment modal
+  $scope.comment = function() {
+    $scope.commentform.show();
+  };
+
+
+
 })
 
         .controller('MenuController', ['$scope', 'menuFactory', 'favoriteFactory', 'baseURL', '$ionicListDelegate', function($scope, menuFactory, favoriteFactory, baseURL, $ionicListDelegate) {
