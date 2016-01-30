@@ -288,7 +288,7 @@ angular.module('conFusion.controllers', [])
 			);
          }])
 
-		.controller('FavoritesController', ['$scope', 'menuFactory', 'favoriteFactory', 'baseURL', '$ionicListDelegate', '$ionicPopup', '$ionicLoading', '$timeout', function ($scope, menuFactory, favoriteFactory, baseURL, $ionicListDelegate, $ionicPopup, $ionicLoading, $timeout) {
+		.controller('FavoritesController', ['$scope', 'dishes', 'favorites', 'favoriteFactory', 'baseURL', '$ionicListDelegate', '$ionicPopup', '$ionicLoading', '$timeout', function ($scope, dishes, favorites, favoriteFactory, baseURL, $ionicListDelegate, $ionicPopup, $ionicLoading, $timeout) {
 
              $scope.baseURL = baseURL;
              $scope.shouldShowDelete = false;
@@ -297,22 +297,9 @@ angular.module('conFusion.controllers', [])
                  template: '<ion-spinner></ion-spinner> Loading...'
              });
 
-             $scope.favorites = favoriteFactory.getFavorites();
+             $scope.favorites = favorites;
+             $scope.dishes = dishes;
 
-             $scope.dishes = menuFactory.query (
-                 function (response) {
-                     $scope.dishes = response;
-					 $timeout(function () {
-                         $ionicLoading.hide();
-                     }, 1000);
-                 },
-                 function (response) {
-                     $scope.message = "Error: " + response.status + " " + response.statusText;
-					 $timeout(function () {
-                         $ionicLoading.hide();
-                     }, 1000);
-                 }
-	         );
              console.log($scope.dishes, $scope.favorites);
 
              $scope.toggleDelete = function () {

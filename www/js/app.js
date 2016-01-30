@@ -37,7 +37,7 @@ angular.module('conFusion', ['ionic', 'conFusion.controllers', 'conFusion.servic
     views: {
       'mainContent': {
         templateUrl: 'templates/home.html',
-		controller: 'IndexController'
+        controller: 'IndexController'
       }
     }
   })
@@ -47,7 +47,7 @@ angular.module('conFusion', ['ionic', 'conFusion.controllers', 'conFusion.servic
       views: {
         'mainContent': {
           templateUrl: 'templates/aboutus.html',
-		  controller: 'AboutController'
+          controller: 'AboutController'
         }
       }
   })
@@ -71,14 +71,14 @@ angular.module('conFusion', ['ionic', 'conFusion.controllers', 'conFusion.servic
     }
   })
 
-  .state('app.dishdetail', {
-	  url: '/menu/:id',
-	  views: {
+  .state('app.dishdetails', {
+      url: '/menu/:id',
+      views: {
        'mainContent': {
                templateUrl: 'templates/dishdetail.html',
-			   controller: 'DishDetailController'
-	   }
-	  }
+               controller: 'DishDetailController'
+       }
+      }
   })
   
   .state('app.favorites', {
@@ -86,7 +86,15 @@ angular.module('conFusion', ['ionic', 'conFusion.controllers', 'conFusion.servic
       views: {
         'mainContent': {
           templateUrl: 'templates/favorites.html',
-            controller:'FavoritesController'
+            controller:'FavoritesController',
+          resolve: {
+              dishes:  ['menuFactory', function(menuFactory){
+                return menuFactory.query();
+              }],
+              favorites: ['favoriteFactory', function(favoriteFactory) {
+                  return favoriteFactory.getFavorites();
+              }]
+          }
         }
       }
   });
