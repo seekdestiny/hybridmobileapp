@@ -1,20 +1,17 @@
 angular.module('conFusion.services', ['ngResource'])
         .constant("baseURL","http://localhost:3000/")
-        .service('menuFactory', ['$resource', 'baseURL', function($resource,baseURL) {
-    
-                this.getDishes = function(){
+        .factory('menuFactory', ['$resource', 'baseURL', function($resource,baseURL) {
                     
-                    return $resource(baseURL+"dishes/:id",null,  {'update':{method:'PUT' }});
-                    
-                };
-    
-                // implement a function named getPromotion
-                // that returns a selected promotion.
-                this.getPromotion = function() {
-                    return   $resource(baseURL+"promotions/:id");
-                };
-    
+                return $resource(baseURL+"dishes/:id", null, {
+                    'update': {
+                        method:'PUT' 
+                    }
+                });    
                         
+        }])
+
+        .factory('promotionFactory', ['$resource', 'baseURL', function ($resource, baseURL) {
+            return $resource(baseURL + "promotions/:id");
         }])
 
         .factory('corporateFactory', ['$resource', 'baseURL', function($resource,baseURL) {
@@ -23,12 +20,12 @@ angular.module('conFusion.services', ['ngResource'])
     
             corpfac.getLeaders = function(){
 
-				    return $resource(baseURL+"leadership/:id",null,
-					{'update': {method: 'PUT'}});
+                    return $resource(baseURL+"leadership/:id",null,
+                    {'update': {method: 'PUT'}});
                     
             };
     
-			return corpfac;
+            return corpfac;
         }])
 
         .factory('feedbackFactory', ['$resource', 'baseURL', function($resource,baseURL) {
@@ -38,7 +35,7 @@ angular.module('conFusion.services', ['ngResource'])
     
         }])
 
-	    .factory('favoriteFactory', ['$resource', 'baseURL', function ($resource, baseURL) {
+        .factory('favoriteFactory', ['$resource', 'baseURL', function ($resource, baseURL) {
             var favFac = {};
             var favorites = [];
 
@@ -50,7 +47,7 @@ angular.module('conFusion.services', ['ngResource'])
                 favorites.push({id: index});
             };
 
-			favFac.deleteFromFavorites = function (index) {
+            favFac.deleteFromFavorites = function (index) {
                 for (var i = 0; i < favorites.length; i++) {
                     if (favorites[i].id == index) {
                         favorites.splice(i, 1);
@@ -58,9 +55,9 @@ angular.module('conFusion.services', ['ngResource'])
                 }
             };
 
-			favFac.getFavorites = function () {
+            favFac.getFavorites = function () {
                 return favorites;
-			};
+            };
 
             return favFac;
         }])
