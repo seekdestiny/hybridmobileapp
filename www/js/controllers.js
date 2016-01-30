@@ -151,24 +151,13 @@ angular.module('conFusion.controllers', [])
             };
         }])
 
-        .controller('DishDetailController', ['$scope', '$stateParams', 'menuFactory', 'favoriteFactory', 'baseURL', '$ionicPopover', '$ionicModal', '$timeout', function($scope, $stateParams, menuFactory, favoriteFactory, baseURL, $ionicPopover, $ionicModal, $timeout) {
+        .controller('DishDetailController', ['$scope', '$stateParams', 'dish', 'favoriteFactory', 'baseURL', '$ionicPopover', '$ionicModal', '$timeout', function($scope, $stateParams, dish, favoriteFactory, baseURL, $ionicPopover, $ionicModal, $timeout) {
             
 			$scope.baseURL = baseURL;
-            $scope.dish = {};
+            $scope.dish = dish;
             $scope.showDish = false;
             $scope.message="Loading ...";
             $scope.comments = {rating:5, comment:"", author:"", date:""};
-
-            $scope.dish = menuFactory.get({id:parseInt($stateParams.id,10)})
-            .$promise.then(
-                            function(response){
-                                $scope.dish = response;
-                                $scope.showDish = true;
-                            },
-                            function(response) {
-                                $scope.message = "Error: "+response.status + " " + response.statusText;
-                            }
-            );
 
 			$ionicPopover.fromTemplateUrl('templates/dish-detail-popover.html', {
 				scope: $scope
