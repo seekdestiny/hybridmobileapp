@@ -244,21 +244,13 @@ angular.module('conFusion.controllers', [])
             
          }])
 
-        .controller('AboutController', ['$scope', 'corporateFactory', 'baseURL', function($scope, corporateFactory, baseURL) {
+        .controller('AboutController', ['$scope', 'leaders', 'baseURL', function($scope, leaders, baseURL) {
             $scope.baseURL = baseURL;
             $scope.leaders = {};
             $scope.showLeaders = false;
             $scope.message="Loading ...";
             
-            $scope.leaders = corporateFactory.query(
-                function(response) {
-                    $scope.leaders = response;
-                    $scope.showLeaders = true;
-                },
-                function(response) {
-                    $scope.message = "Error: "+response.status + " " + response.statusText;
-                }
-            );
+            $scope.leaders = leaders;
          }])
 
         .controller('FavoritesController', ['$scope', 'dishes', 'favorites', 'favoriteFactory', 'baseURL', '$ionicListDelegate', '$ionicPopup', '$ionicLoading', '$timeout', function ($scope, dishes, favorites, favoriteFactory, baseURL, $ionicListDelegate, $ionicPopup, $ionicLoading, $timeout) {
