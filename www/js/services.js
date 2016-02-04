@@ -79,6 +79,6 @@ angular.module('conFusion.services', ['ngResource'])
 			  clear: function() {
                   $window.localStorage.clear(); 
 			  }
-           }
+           };
         }])
 ;

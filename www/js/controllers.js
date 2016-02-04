@@ -375,4 +375,5 @@ angular.module('conFusion.controllers', [])
                      }
                  }
                  return out;
-         }});
+             };
+		 });
