@@ -98,7 +98,7 @@ angular.module('conFusion.controllers', [])
         }, 1000);
     };
 
-	$ionicPlatform.ready(function() {
+    $ionicPlatform.ready(function() {
         var options = {
             quality: 50,
             destinationType: Camera.DestinationType.DATA_URL,
@@ -110,12 +110,12 @@ angular.module('conFusion.controllers', [])
             popoverOptions: CameraPopoverOptions,
             saveToPhotoAlbum: false
         };
-		var selectOptions = {
-			maximumImagesCount: 1,
-			width: 100,
-			height: 100,
-			quality: 50
-		};
+        var selectOptions = {
+            maximumImagesCount: 1,
+            width: 100,
+            height: 100,
+            quality: 50
+        };
         $scope.takePicture = function() {
             $cordovaCamera.getPicture(options).then(function(imageData) {
                 $scope.registration.imgSrc = "data:image/jpeg;base64," + imageData;
@@ -129,14 +129,14 @@ angular.module('conFusion.controllers', [])
             $cordovaImagePicker.getPictures(selectOptions).then(function(results) {
                 //$scope.registration.imgSrc = "data:image/jpeg;base64," + results[0];
                 $scope.registration.imgSrc = results[0];
-				window.plugins.Base64.encodeFile($scope.registration.imgSrc, function(base64){                                $scope.registration.imgSrc = base64;
+                window.plugins.Base64.encodeFile($scope.registration.imgSrc, function(base64){                                $scope.registration.imgSrc = base64;
                 });
-		    }, function(err) {
+            }, function(err) {
                 console.log(err);
-		    });
+            });
 
-			$scope.registerform.show();
-		};
+            $scope.registerform.show();
+        };
     });
 })
 
@@ -180,20 +180,20 @@ angular.module('conFusion.controllers', [])
                 favoriteFactory.addToFavorites(index);
                 $ionicListDelegate.closeOptionButtons();
 
-				$ionicPlatform.ready(function () {
+                $ionicPlatform.ready(function () {
                 
-				    $cordovaLocalNotification.schedule({
+                    $cordovaLocalNotification.schedule({
                         id: 1,
                         title: "Added Favorite",
                         text: $scope.dishes[index].name
                     }).then(
-					    function () {
+                        function () {
                             console.log('Added Favorite '+$scope.dishes[index].name);
                         },
                         function () {
                             console.log('Failed to add Favorite ');
                         }
-					);
+                    );
 
                     $cordovaToast
                         .show('Added Favorite '+$scope.dishes[index].name, 'long', 'center')
@@ -265,7 +265,7 @@ angular.module('conFusion.controllers', [])
                 favoriteFactory.addToFavorites(index);
                 $scope.closePopover();
 
-				$ionicPlatform.ready(function () {
+                $ionicPlatform.ready(function () {
                     $cordovaToast
                         .show('Added Favorite '+$scope.dish.name, 'long', 'bottom')
                         .then(function (success) {
@@ -274,7 +274,7 @@ angular.module('conFusion.controllers', [])
                            // error
                         });
 
-				    $cordovaLocalNotification.schedule({
+                    $cordovaLocalNotification.schedule({
                         id: 1,
                         title: "Added Favorite",
                         text: $scope.dish.name
@@ -284,7 +284,7 @@ angular.module('conFusion.controllers', [])
                     function () {
                         console.log('Failed to add Notification ');
                     });
-				});
+                });
             };
 
              // Create the comment modal that we will use later
@@ -396,7 +396,7 @@ angular.module('conFusion.controllers', [])
                          favoriteFactory.deleteFromFavorites(index);
                          $ionicPlatform.ready(function() {
                              $cordovaVibration.vibrate(100);
-						 });
+                         });
                      } else {
                          console.log('Canceled delete');
                      }
@@ -417,4 +417,4 @@ angular.module('conFusion.controllers', [])
                  }
                  return out;
              };
-		 });
+         });
