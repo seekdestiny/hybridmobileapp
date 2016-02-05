@@ -33,6 +33,11 @@
     {
       "locator": "https://github.com/wymsee/cordova-imagePicker.git",
       "id": "com.synconset.imagepicker"
+    },
+    "cordova-plugin-vibration",
+    {
+      "locator": "https://github.com/hazemhagrass/phonegap-base64",
+      "id": "com-badrit-base64"
     }
   ],
   "cordovaPlatforms": [
