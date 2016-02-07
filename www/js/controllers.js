@@ -127,10 +127,10 @@ angular.module('conFusion.controllers', [])
         };
         $scope.selectPicture = function() {
             $cordovaImagePicker.getPictures(selectOptions).then(function(results) {
-                //$scope.registration.imgSrc = "data:image/jpeg;base64," + results[0];
                 $scope.registration.imgSrc = results[0];
-                window.plugins.Base64.encodeFile($scope.registration.imgSrc, function(base64){                                $scope.registration.imgSrc = base64;
-                });
+                //$scope.registration.imgSrc = results[0];
+                //window.plugins.Base64.encodeFile($scope.registration.imgSrc, function(base64){                          //      $scope.registration.imgSrc = base64;
+                //});
             }, function(err) {
                 console.log(err);
             });
